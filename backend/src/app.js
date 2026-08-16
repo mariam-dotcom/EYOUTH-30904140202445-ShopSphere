@@ -1,6 +1,7 @@
-// src/app.js
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const authRoutes = require('./modules/auth/auth.routes');
@@ -14,7 +15,22 @@ const { isMongoReady } = require('./config/db');
 
 const app = express();
 
-app.use(cors());
+app.use(helmet());
+
+const allowedOrigins = (process.env.CORS_ORIGIN || '').split(',').filter(Boolean);
+app.use(cors({
+  origin: allowedOrigins.length > 0 ? allowedOrigins : '*',
+  credentials: true,
+}));
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api', apiLimiter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
