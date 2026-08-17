@@ -3,7 +3,13 @@ const { PrismaClient } = require('@prisma/client');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const prisma = new PrismaClient();
+const globalForPrisma = globalThis;
+const prisma = globalForPrisma.__prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.__prisma = prisma;
+} else {
+  globalForPrisma.__prisma = prisma;
+}
 
 let mongoReady = false;
 
