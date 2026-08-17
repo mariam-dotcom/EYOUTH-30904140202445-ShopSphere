@@ -1,5 +1,5 @@
-// src/modules/catalog/catalog.controller.js
 const service = require('./catalog.service');
+const { uploadImage } = require('../../config/supabaseStorage');
 
 async function list(req, res) {
   try {
@@ -24,7 +24,10 @@ async function getById(req, res) {
 
 async function create(req, res) {
   try {
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+    let imagePath = null;
+    if (req.file) {
+      imagePath = await uploadImage(req.file.buffer, req.file.originalname, req.file.mimetype);
+    }
     const item = await service.create(req.body, imagePath);
     return res.status(201).json(item);
   } catch (err) {
@@ -35,7 +38,10 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : undefined;
+    let imagePath;
+    if (req.file) {
+      imagePath = await uploadImage(req.file.buffer, req.file.originalname, req.file.mimetype);
+    }
     const item = await service.update(req.params.id, req.body, imagePath);
     return res.json(item);
   } catch (err) {
