@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const morgan = require('morgan');
+const logger = require('./config/logger');
 
 const authRoutes = require('./modules/auth/auth.routes');
 const accountsRoutes = require('./modules/accounts/accounts.routes');
@@ -16,6 +18,10 @@ const { isMongoReady } = require('./config/db');
 const app = express();
 
 app.use(helmet());
+
+app.use(morgan('combined', {
+  stream: { write: (message) => logger.info(message.trim()) },
+}));
 
 const allowedOrigins = (process.env.CORS_ORIGIN || '').split(',').filter(Boolean);
 app.use(cors({
@@ -56,7 +62,7 @@ app.use((req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  console.error('[unhandled]', err);
+  logger.error(err.message, { stack: err.stack, path: req.path, method: req.method });
   res.status(err.status || 500).json({ error: err.message || 'Unexpected server error.' });
 });
 
