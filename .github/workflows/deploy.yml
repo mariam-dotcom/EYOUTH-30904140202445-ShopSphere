@@ -28,8 +28,7 @@ jobs:
 
       - name: Deploy to Vercel Production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        working-directory: backend
-        run: npx vercel deploy --prod --token=$VERCEL_TOKEN --yes
+        run: npx vercel deploy --prod --token=$VERCEL_TOKEN --yes --cwd backend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
