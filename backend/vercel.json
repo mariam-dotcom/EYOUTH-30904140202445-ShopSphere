@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/notify-review", "destination": "/api/notify-review" },
     { "source": "/(.*)", "destination": "/api" }
   ]
 }
