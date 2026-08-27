@@ -19,6 +19,16 @@ async function create(itemId, account, { stars, note }) {
     accountId: account.id,
     displayName: account.displayName,
   });
+
+  // Fire-and-forget background notification (Task 3.3) — temporary error logging to debug
+  axios.post(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:5000'}/api/notify-review`, {  
+    itemId,  
+    stars,  
+    displayName: account.displayName,
+  }).catch((err) => {
+    console.error('[notify-review error]:', err.message);
+  });
+
   return data;
 }
 
