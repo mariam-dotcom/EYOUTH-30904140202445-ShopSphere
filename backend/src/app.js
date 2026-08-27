@@ -19,9 +19,10 @@ const app = express();
 
 app.use(helmet());
 
-app.use(morgan('combined', {
-  stream: { write: (message) => logger.info(message.trim()) },
-}));
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.path}`, { method: req.method, path: req.path });
+  next();
+});
 
 const allowedOrigins = (process.env.CORS_ORIGIN || '').split(',').filter(Boolean);
 app.use(cors({
