@@ -28,7 +28,20 @@ REVIEW_SERVICE_URL environment variable).
   resilient long-term, but adds infrastructure complexity (a broker, retry
   handling) that wasn't justified for a single low-traffic feature within
   the project's time constraints.
+## Decision 2: Move Review Notifications to a Serverless Function
+In addition to the extraction above, the task of notifying about a new
+review (a background, event-triggered workload with no need for an
+always-on server) was moved to a standalone Vercel serverless function
+(`api/notify-review.js`), rather than handled inline inside the main
+request/response cycle.
 
+**Why serverless suits this workload:** it runs only when a review is
+created — brief, infrequent, and independent of the main request path.
+Serverless functions scale to zero when idle (no cost/resources spent
+waiting), start on demand, and don't require running or maintaining a
+dedicated background worker process. Since the main app doesn't need to
+wait on the result, it's called fire-and-forget, which fits Vercel's
+per-invocation execution model well.
 ## Consequences
 - **Positive**: Reviews/ratings can now be deployed, scaled, and modified
   independently of the main app. The main backend's codebase is smaller and
