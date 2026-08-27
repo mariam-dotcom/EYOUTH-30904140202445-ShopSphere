@@ -1,0 +1,86 @@
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1B2430" />
+    </marker>
+  </defs>
+
+  <rect width="1000" height="620" fill="#F7F5F1" />
+
+  <text x="500" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#1B2430">
+    ShopSphere - Production Architecture (EYOUTH-30904140202445)
+  </text>
+  <text x="500" y="62" text-anchor="middle" font-size="13" fill="#5C7A6B">
+    Actual Task 1 deployment - Vercel (frontend + backend), Supabase (Postgres + Storage), MongoDB Atlas
+  </text>
+
+  <!-- User -->
+  <rect x="420" y="90" width="160" height="60" rx="8" fill="#ffffff" stroke="#1B2430" stroke-width="2"/>
+  <text x="500" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2430">User's Browser</text>
+  <text x="500" y="133" text-anchor="middle" font-size="11" fill="#5C7A6B">HTTPS</text>
+
+  <!-- Frontend -->
+  <rect x="380" y="200" width="240" height="80" rx="8" fill="#D8A24A" stroke="#1B2430" stroke-width="2"/>
+  <text x="500" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2430">Frontend (React/Vite)</text>
+  <text x="500" y="248" text-anchor="middle" font-size="11" fill="#1B2430">Vercel - Production Build</text>
+  <text x="500" y="264" text-anchor="middle" font-size="10" fill="#1B2430">eyouth-30904140202445-shop-sphere-b.vercel.app</text>
+
+  <!-- Backend -->
+  <rect x="380" y="330" width="240" height="90" rx="8" fill="#5C7A6B" stroke="#1B2430" stroke-width="2"/>
+  <text x="500" y="358" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Backend (Node/Express)</text>
+  <text x="500" y="378" text-anchor="middle" font-size="11" fill="#ffffff">Vercel Serverless Function</text>
+  <text x="500" y="394" text-anchor="middle" font-size="10" fill="#ffffff">eyouth-30904140202445-shop-sphere.vercel.app</text>
+  <text x="500" y="409" text-anchor="middle" font-size="9" fill="#ffffff">Helmet + CORS + Rate Limiting active</text>
+
+  <!-- Postgres -->
+  <rect x="80" y="470" width="220" height="90" rx="8" fill="#3E6AE1" stroke="#1B2430" stroke-width="2"/>
+  <text x="190" y="498" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">PostgreSQL</text>
+  <text x="190" y="518" text-anchor="middle" font-size="11" fill="#ffffff">Supabase (Production)</text>
+  <text x="190" y="536" text-anchor="middle" font-size="9" fill="#ffffff">Prisma ORM - pooled connection</text>
+  <text x="190" y="550" text-anchor="middle" font-size="9" fill="#ffffff">Accounts, Items, Baskets, etc.</text>
+
+  <!-- Mongo -->
+  <rect x="330" y="470" width="220" height="90" rx="8" fill="#2E7D32" stroke="#1B2430" stroke-width="2"/>
+  <text x="440" y="498" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">MongoDB</text>
+  <text x="440" y="518" text-anchor="middle" font-size="11" fill="#ffffff">MongoDB Atlas (Production)</text>
+  <text x="440" y="536" text-anchor="middle" font-size="9" fill="#ffffff">Mongoose ODM</text>
+  <text x="440" y="550" text-anchor="middle" font-size="9" fill="#ffffff">Ratings, Activity Logs</text>
+
+  <!-- Supabase Storage -->
+  <rect x="590" y="470" width="220" height="90" rx="8" fill="#8B5CF6" stroke="#1B2430" stroke-width="2"/>
+  <text x="700" y="498" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Object Storage</text>
+  <text x="700" y="518" text-anchor="middle" font-size="11" fill="#ffffff">Supabase Storage</text>
+  <text x="700" y="536" text-anchor="middle" font-size="9" fill="#ffffff">product-images bucket (public)</text>
+  <text x="700" y="550" text-anchor="middle" font-size="9" fill="#ffffff">Uploaded product photos</text>
+
+  <!-- Monitoring -->
+  <rect x="800" y="330" width="170" height="90" rx="8" fill="#ffffff" stroke="#1B2430" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="885" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2430">UptimeRobot</text>
+  <text x="885" y="378" text-anchor="middle" font-size="10" fill="#5C7A6B">Polls /api/health</text>
+  <text x="885" y="394" text-anchor="middle" font-size="10" fill="#5C7A6B">every 5 minutes</text>
+
+  <!-- Arrows: traffic path -->
+  <line x1="500" y1="150" x2="500" y2="198" stroke="#1B2430" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="515" y="178" font-size="10" fill="#1B2430">HTTPS request</text>
+
+  <line x1="500" y1="280" x2="500" y2="328" stroke="#1B2430" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="515" y="308" font-size="10" fill="#1B2430">Axios (REST /api/*)</text>
+
+  <line x1="440" y1="420" x2="220" y2="468" stroke="#1B2430" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="290" y="450" font-size="9" fill="#1B2430">Prisma (SQL)</text>
+
+  <line x1="480" y1="420" x2="440" y2="468" stroke="#1B2430" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="440" y="450" font-size="9" fill="#1B2430" text-anchor="middle">Mongoose</text>
+
+  <line x1="560" y1="420" x2="680" y2="468" stroke="#1B2430" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="640" y="450" font-size="9" fill="#1B2430">Storage API</text>
+
+  <line x1="800" y1="375" x2="622" y2="375" stroke="#1B2430" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+
+  <!-- Legend -->
+  <rect x="30" y="90" width="300" height="90" rx="8" fill="#ffffff" stroke="#1B2430" stroke-width="1"/>
+  <text x="45" y="110" font-size="11" font-weight="bold" fill="#1B2430">Legend</text>
+  <text x="45" y="128" font-size="10" fill="#1B2430">Solid arrow = live request/data traffic</text>
+  <text x="45" y="144" font-size="10" fill="#1B2430">Dashed arrow = external health polling</text>
+  <text x="45" y="160" font-size="10" fill="#1B2430">All connections use HTTPS/TLS</text>
+</svg>

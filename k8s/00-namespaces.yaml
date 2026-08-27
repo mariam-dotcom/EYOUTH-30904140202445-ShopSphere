@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: aws-simulation
+  labels:
+    project: shopsphere
+    cloud: aws-simulation
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gcp-simulation
+  labels:
+    project: shopsphere
+    cloud: gcp-simulation
